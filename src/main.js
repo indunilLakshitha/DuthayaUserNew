@@ -32,12 +32,12 @@ import '@ionic/vue/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-
+// import store from './store/index'
 const app = createApp(App)
   .use(IonicVue)
   .use(router);
-  
-
+ 
+// app.use(store)
   app.component('BaseLayout', BaseLayout);
   app.component('SideMenu', SideMenu);
   app.component('BottomDrawer', BottomDrawer);

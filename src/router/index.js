@@ -124,7 +124,12 @@ const routes = [
         path: '/cansel_journey',
         component: () => import('@/screens/user_app/CanselJourney.vue')
       },
+      {
+        path: '/sql',
+        component: () => import('@/components/Person.vue')
+      },
 ]
+
 const URL='http://duthaya.xcelenit.store/api/'
 
 const router = createRouter({

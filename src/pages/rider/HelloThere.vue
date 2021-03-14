@@ -4,14 +4,14 @@
       <div id="container">
         <strong id="title">Hello There!</strong>
         <p>Enter your mobile number to continue</p>
-          <form action="">
-            <ion-input
+        <form action="">
+          <ion-input
             type="number"
             placeholder="+94  Enter your phone number"
             v-model="mobileNo"
           ></ion-input>
-          </form>
-        <ion-button expand="full" v-on:click="getOtp"  >Next</ion-button>
+        </form>
+        <ion-button expand="full" v-on:click="getOtp">Next</ion-button>
       </div>
     </ion-content>
   </ion-page>
@@ -74,9 +74,9 @@ import {
   //   IonItem,
   IonContent,
   IonButton,
-//   IonTitle,
+  //   IonTitle,
 } from "@ionic/vue";
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   components: {
@@ -87,33 +87,38 @@ export default {
     IonButton,
     // IonTitle,
   },
-  data () {
-          return {
-            mobileNo :''
-          }
+  data() {
+    return {
+      mobileNo: "",
+    };
   },
+
   methods: {
-    getOtp(){
-       axios.post(this.$router.options.URL+'otp/request',{
-            "account_type": "User",
-            "mobile": this.mobileNo,
-            "device_name": "magni"
-      })
-      .then(response => {
-        console.log(response.data);
-        if(response.data.user=='new'){
-          
-          //  this.$router.push('get-started')
-           this.$router.push('otp')
-        }else if(response.data.user=='exist'){
+    getOtp() {
+      axios
+        .post(this.$router.options.URL + "otp/request", {
+          account_type: "User",
+          mobile: this.mobileNo,
+          device_name: "magni",
+        })
+        .then((response) => {
+          // console.log(response.data.user);
+          if (response.data.user == "new") {
+            localStorage.otp = response.data.otp;
+            localStorage.mobileNo = this.mobileNo;
+            localStorage.user_type = response.data.user;
+            this.$router.push("otp");
+          } else if (response.data.user == "exist") {
+            localStorage.otp = response.data.otp;
+            localStorage.mobileNo = this.mobileNo;
+             localStorage.user_type = response.data.user;
 
-           this.$router.push('otp')
-           
-        }
-      })
- 
+
+            this.$router.push("otp");
+          }
+        });
     },
+  
   },
-
 };
 </script>
