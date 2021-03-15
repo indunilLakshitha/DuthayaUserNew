@@ -5,7 +5,7 @@
         <strong id="title"> Welcome </strong>
         <p>Enter OTP we sent to your phone</p>
         <!-- <p>+94 770 371671</p> -->
-        <ion-lable @click="submit" >{{mobileNo}}</ion-lable>
+        <ion-label @click="submit" >{{mobileNo}}</ion-label>
         <table>
           <tr>
             <td>
@@ -92,7 +92,7 @@ table {
 
 
  <script>
-import { IonPage, IonInput, IonContent } from "@ionic/vue";
+import { IonPage, IonInput, IonContent, IonLabel } from "@ionic/vue";
 import axios from "axios";
 
 export default {
@@ -100,6 +100,7 @@ export default {
     IonPage,
     IonInput,
     IonContent,
+    IonLabel
   },
   data() {
     return {
