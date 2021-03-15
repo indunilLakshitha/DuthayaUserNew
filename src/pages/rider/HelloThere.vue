@@ -12,6 +12,7 @@
           ></ion-input>
         </form>
         <ion-button expand="full" v-on:click="getOtp">Next</ion-button>
+        <!-- <ion-button expand="full" v-on:click="setObject">Next</ion-button> -->
       </div>
     </ion-content>
   </ion-page>
@@ -77,7 +78,9 @@ import {
   //   IonTitle,
 } from "@ionic/vue";
 import axios from "axios";
+import { Plugins } from "@capacitor/core";
 
+const { Storage } = Plugins;
 export default {
   components: {
     IonPage,
@@ -94,6 +97,31 @@ export default {
   },
 
   methods: {
+    async setObject(otp,mobile,type) {
+      await Storage.set({
+        key: "OTP",
+        value: JSON.stringify({
+          id: 1,
+          otp: otp,
+          mobile: mobile,
+          type: type,
+        }),
+      });
+      console.log("success");
+      this.getObject();
+    },
+    async getObject() {
+      const ret = await Storage.get({ key: "OTP" });
+      const user = JSON.parse(ret.value);
+      console.log(user);
+      if(user.type=="new"){
+      this.$router.push("otp");
+
+      }else if(user.type== "exist"){
+            this.$router.push("otp");
+
+      }
+    },
     getOtp() {
       axios
         .post(this.$router.options.URL + "otp/request", {
@@ -103,22 +131,29 @@ export default {
         })
         .then((response) => {
           // console.log(response.data.user);
-          if (response.data.user == "new") {
-            localStorage.otp = response.data.otp;
-            localStorage.mobileNo = this.mobileNo;
-            localStorage.user_type = response.data.user;
-            this.$router.push("otp");
-          } else if (response.data.user == "exist") {
-            localStorage.otp = response.data.otp;
-            localStorage.mobileNo = this.mobileNo;
-             localStorage.user_type = response.data.user;
+          // if (response.data.user == "new") {
+            // localStorage.otp = response.data.otp;
+            // localStorage.mobileNo = this.mobileNo;
+            // localStorage.user_type = response.data.user;
+            this.setObject(
+              response.data.otp,
+              this.mobileNo,
+              response.data.user
+            );
+          // } else if (response.data.user == "exist") {
+            // localStorage.otp = response.data.otp;
+            // localStorage.mobileNo = this.mobileNo;
+            // localStorage.user_type = response.data.user;
+            // this.setObject(
+              // response.data.otp,
+              // this.mobileNo,
+              // response.data.user
+            // );
 
-
-            this.$router.push("otp");
-          }
+            // this.$router.push("otp");
+          // }
         });
     },
-  
   },
 };
 </script>

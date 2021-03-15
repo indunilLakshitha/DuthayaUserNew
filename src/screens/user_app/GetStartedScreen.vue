@@ -13,12 +13,12 @@
         <ion-input v-model="LastName" type="text"></ion-input>
 
         <p>
-          <ion-checkbox color="dark" v-model="Agreed"></ion-checkbox> I Agree to
+          <ion-checkbox color="dark" id="aggreed" checked="false"></ion-checkbox> I Agree to
           the
           <a href="" style="text-decoration: none">Terms and Conditions</a>
         </p>
       </form>
-      <ion-button expand="full" @click="register">Next</ion-button>
+      <ion-button expand="full" id="btn" @click="register" >Next</ion-button>
     </div>
   </BaseLayout>
 </template>
@@ -36,11 +36,14 @@ export default {
     return {
       FirstName: '',
       LastName: '',
-      Agreed: '',
     };
   },
   methods: {
     register() {
+      console.log(aggreed.value)
+      if(aggreed.value){
+        console.log('wada')
+      }
       console.log(this.FirstName)
       console.log(this.LastName)
       axios.defaults.headers = {
