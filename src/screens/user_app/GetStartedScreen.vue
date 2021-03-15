@@ -13,12 +13,16 @@
         <ion-input v-model="LastName" type="text"></ion-input>
 
         <p>
-          <ion-checkbox color="dark" id="aggreed" checked="false"></ion-checkbox> I Agree to
-          the
+          <ion-checkbox
+            color="dark"
+            id="aggreed"
+            checked="false"
+          ></ion-checkbox>
+          I Agree to the
           <a href="" style="text-decoration: none">Terms and Conditions</a>
         </p>
       </form>
-      <ion-button expand="full" id="btn" @click="register" >Next</ion-button>
+      <ion-button expand="full" id="btn" @click="register">Next</ion-button>
     </div>
   </BaseLayout>
 </template>
@@ -26,7 +30,9 @@
 <script>
 import { IonCheckbox, IonButton } from "@ionic/vue";
 import axios from "axios";
+import { Plugins } from "@capacitor/core";
 
+const { Storage } = Plugins;
 export default {
   components: {
     IonCheckbox,
@@ -34,22 +40,23 @@ export default {
   },
   data() {
     return {
-      FirstName: '',
-      LastName: '',
+      FirstName: "",
+      LastName: "",
+      Token: "",
     };
+  },
+  created() {
+    this.getObject();
   },
   methods: {
     register() {
-      console.log(aggreed.value)
-      if(aggreed.value){
-        console.log('wada')
-      }
-      console.log(this.FirstName)
-      console.log(this.LastName)
+      console.log(this.FirstName);
+      console.log(this.LastName);
+      console.log(this.Token);
       axios.defaults.headers = {
         "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Authorization": 'Bearer ' +localStorage.token,
+        Accept: "application/json",
+        Authorization: "Bearer " + this.Token,
       };
       axios
         .put(this.$router.options.URL + "otp/update/user", {
@@ -58,12 +65,26 @@ export default {
         })
         .then((response) => {
           console.log(response.data);
-          // if (response.data.user == "new") {
-          //   this.$router.push("get-started");
-          // } else if (response.data.user == "exist") {
-          //   this.$router.push("otp");
-          // }
+          // this.setObject()
+        
         });
+    },
+    async getObject() {
+      const ret = await Storage.get({ key: "TOKEN" });
+      const user = JSON.parse(ret.value);
+      this.Token = user.token;
+      console.log(this.Token)
+    },
+    async setObject(f_name,l_name) {
+      await Storage.set({
+        key: "PROFILE",
+        value: JSON.stringify({
+          id: 3,
+          first_name: f_name,
+          last_name: l_name,
+        }),
+      });
+     
     },
   },
 };

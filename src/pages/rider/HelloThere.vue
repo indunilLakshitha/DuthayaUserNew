@@ -85,10 +85,8 @@ export default {
   components: {
     IonPage,
     IonInput,
-    // IonItem,
     IonContent,
     IonButton,
-    // IonTitle,
   },
   data() {
     return {
@@ -130,28 +128,13 @@ export default {
           device_name: "magni",
         })
         .then((response) => {
-          // console.log(response.data.user);
-          // if (response.data.user == "new") {
-            // localStorage.otp = response.data.otp;
-            // localStorage.mobileNo = this.mobileNo;
-            // localStorage.user_type = response.data.user;
+       
             this.setObject(
               response.data.otp,
               this.mobileNo,
               response.data.user
             );
-          // } else if (response.data.user == "exist") {
-            // localStorage.otp = response.data.otp;
-            // localStorage.mobileNo = this.mobileNo;
-            // localStorage.user_type = response.data.user;
-            // this.setObject(
-              // response.data.otp,
-              // this.mobileNo,
-              // response.data.user
-            // );
-
-            // this.$router.push("otp");
-          // }
+        
         });
     },
   },
