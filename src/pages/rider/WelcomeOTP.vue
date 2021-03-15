@@ -92,7 +92,7 @@ table {
 
 
  <script>
-import { IonPage, IonInput, IonContent } from "@ionic/vue";
+import { IonPage, IonInput, IonContent, IonLabel } from "@ionic/vue";
 import axios from "axios";
 import { Plugins } from "@capacitor/core";
 
@@ -102,6 +102,7 @@ export default {
     IonPage,
     IonInput,
     IonContent,
+    IonLabel
   },
   data() {
     return {
