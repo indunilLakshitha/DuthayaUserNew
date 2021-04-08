@@ -12,7 +12,6 @@
         <br />
         <ion-input v-model="LastName" type="text"></ion-input>
 
-        {{ FirstName }}
 
         <p>
           <ion-checkbox
@@ -45,7 +44,7 @@ export default {
   },
   data() {
     return {
-      FirstName: 'asaas',
+      FirstName: '',
       LastName: '',
       Token: '',
       checkbox_value: null,
@@ -59,21 +58,21 @@ export default {
       console.log(this.FirstName);
       console.log(this.LastName);
       console.log(this.Token);
-      // axios.defaults.headers = {
-      //   "Content-Type": "application/json",
-      //   Accept: "application/json",
-      //   Authorization: "Bearer " + this.Token,
-      // };
-      // axios
-      //   .put(this.$router.options.URL + "otp/update/user", {
-      //     first_name: this.FirstName,
-      //     last_name: this.LastName,
-      //   })
-      //   .then((response) => {
-      //     console.log(response.data);
-      //     // this.setObject()
+      axios.defaults.headers = {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: "Bearer " + this.Token,
+      };
+      axios
+        .put(this.$router.options.URL + "otp/update/user", {
+          first_name: this.FirstName,
+          last_name: this.LastName,
+        })
+        .then((response) => {
+          // console.log(response.data);
+          this.setObjectUserProfile(response.data.user)
         
-      //   });
+        });
     },
     async getObject() {
       const ret = await Storage.get({ key: "TOKEN" });
@@ -90,6 +89,16 @@ export default {
           last_name: l_name,
         }),
       });
+     
+    },
+    async setObjectUserProfile(data) {
+      await Storage.set({
+        key: "PROFILE",
+        value: JSON.stringify({
+         UserProfile:data
+        }),
+      });
+         console.log(data)
      
     },
   },
