@@ -12,23 +12,27 @@
         <br />
         <ion-input v-model="LastName" type="text"></ion-input>
 
+        {{ FirstName }}
+
         <p>
           <ion-checkbox
             color="dark"
             id="aggreed"
-            checked="false"
+            checked="true"
+            v-model="checkbox_value"
           ></ion-checkbox>
           I Agree to the
           <a href="" style="text-decoration: none">Terms and Conditions</a>
+         
         </p>
       </form>
-      <ion-button expand="full" id="btn" @click="register">Next</ion-button>
+      <ion-button expand="full" id="btn" @click="register()">Next</ion-button>
     </div>
   </BaseLayout>
 </template>
 
 <script>
-import { IonCheckbox, IonButton } from "@ionic/vue";
+import { IonCheckbox, IonButton,IonInput } from "@ionic/vue";
 import axios from "axios";
 import { Plugins } from "@capacitor/core";
 
@@ -37,12 +41,14 @@ export default {
   components: {
     IonCheckbox,
     IonButton,
+    IonInput
   },
   data() {
     return {
-      FirstName: "",
-      LastName: "",
-      Token: "",
+      FirstName: 'asaas',
+      LastName: '',
+      Token: '',
+      checkbox_value: null,
     };
   },
   created() {
@@ -53,21 +59,21 @@ export default {
       console.log(this.FirstName);
       console.log(this.LastName);
       console.log(this.Token);
-      axios.defaults.headers = {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + this.Token,
-      };
-      axios
-        .put(this.$router.options.URL + "otp/update/user", {
-          first_name: this.FirstName,
-          last_name: this.LastName,
-        })
-        .then((response) => {
-          console.log(response.data);
-          // this.setObject()
+      // axios.defaults.headers = {
+      //   "Content-Type": "application/json",
+      //   Accept: "application/json",
+      //   Authorization: "Bearer " + this.Token,
+      // };
+      // axios
+      //   .put(this.$router.options.URL + "otp/update/user", {
+      //     first_name: this.FirstName,
+      //     last_name: this.LastName,
+      //   })
+      //   .then((response) => {
+      //     console.log(response.data);
+      //     // this.setObject()
         
-        });
+      //   });
     },
     async getObject() {
       const ret = await Storage.get({ key: "TOKEN" });
