@@ -32,13 +32,10 @@
     </ion-header>
     <ion-content>
       <ion-avatar class="ion-margin-start">
-        <ion-img
-          src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
-        >
-        </ion-img>
+        <ion-img :src="ProfilePhotoUrl"> </ion-img>
       </ion-avatar>
       <br />
-      <ion-title>Name Name</ion-title>
+      <ion-title>{{ Title }}</ion-title>
 
       <br />
       <br />
@@ -51,8 +48,7 @@
             </ion-col>
             <ion-col>
               <a href="/journey_ongoing">
-
-              <ion-label > My Tasks </ion-label>
+                <ion-label> My Tasks </ion-label>
               </a>
             </ion-col>
           </ion-row>
@@ -92,18 +88,19 @@
         </ion-item>
 
         <br /><br /><br />
-        
+
         <ion-item>
           <ion-row>
             <ion-col>
               <img src="@/icons/sign_out.svg" alt="" />
             </ion-col>
             <ion-col>
-              <ion-label><b> <p>Sign Out</p></b> </ion-label>
+              <ion-label
+                ><b> <p>Sign Out</p></b>
+              </ion-label>
             </ion-col>
           </ion-row>
         </ion-item>
-
       </ion-list>
     </ion-content>
   </ion-menu>
@@ -131,6 +128,8 @@ import {
   IonRow,
   IonCol,
 } from "@ionic/vue";
+import { Plugins } from "@capacitor/core";
+const { Storage } = Plugins;
 export default {
   components: {
     IonMenu,
@@ -159,6 +158,8 @@ export default {
       newspaper,
       information,
       settings,
+      Title: "",
+      ProfilePhoto: "",
 
       navItems: [
         { id: 1, title: "My Tasks", icon: "@/icons/my_tasks.png" },
@@ -171,6 +172,11 @@ export default {
         { id: 4, title: "Settings", icon: settings },
       ],
     };
+  },
+  created() {
+  },
+  methods: {
+   
   },
 };
 </script>

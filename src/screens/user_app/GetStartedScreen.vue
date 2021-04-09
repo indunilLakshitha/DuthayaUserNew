@@ -99,6 +99,7 @@ export default {
         }),
       });
          console.log(data)
+         this.$router.push("main-1");
      
     },
   },

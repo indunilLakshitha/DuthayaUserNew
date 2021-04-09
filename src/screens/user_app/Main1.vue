@@ -16,7 +16,7 @@
       <ion-content class="ion-padding" scroll-y="false">
         <img src="@/screens/user_app/background_svgs/main-1.svg" alt="" />
 
-        <BottomDrawer></BottomDrawer>
+        <BottomDrawer></BottomDrawer >
         <!-- <BottomDrawerForMap></BottomDrawerForMap> -->
         <!-- <Slider></Slider> -->
       </ion-content>
@@ -35,11 +35,13 @@ import {
   IonTitle,
   IonContent,
 } from "@ionic/vue";
+
 import { IonButton, actionSheetController } from "@ionic/vue";
 import { defineComponent } from "vue";
 import { caretForwardCircle, close, heart, trash, share } from "ionicons/icons";
 import { createGesture } from "@ionic/vue";
-
+import { Plugins } from "@capacitor/core";
+const { Storage } = Plugins;
 export default {
   components: {
     IonApp,
@@ -52,7 +54,23 @@ export default {
     IonContent,
     IonButton,
   },
+  data(){
+    return {
+      Firstname:'',
 
+    }
+  },
+  created() {
+    this.getObject();
+  },
+  methods: {
+    async getObject() {
+      const ret = await Storage.get({ key: "PROFILE" });
+      const user = JSON.parse(ret.value);
+      this.Firstname = user.UserProfile.first_name;
+   
+    },
+  },
   
 };
 </script>

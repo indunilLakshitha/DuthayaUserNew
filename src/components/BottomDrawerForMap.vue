@@ -59,12 +59,21 @@
 <script>
 import { createGesture } from "@ionic/vue";
 import { IonGrid, IonRow, IonCol, IonInput, IonButton, IonCheckbox } from "@ionic/vue";
-
+import { Plugins } from "@capacitor/core";
+const { Storage } = Plugins;
 export default {
   components: {
     IonGrid, IonRow,
     IonCol,
     IonInput,IonButton, IonCheckbox
+  },
+  date(){
+return {
+  Firstname:''
+}
+  },
+  created() {
+    this.getObject();
   },
   mounted() {
     let c = this.$refs.drawerRef;
@@ -128,6 +137,12 @@ export default {
 
     saved_places_screen() {
       this.$router.push("/saved_places");
+    },
+    async getObject() {
+      const ret = await Storage.get({ key: "PROFILE" });
+      const user = JSON.parse(ret.value);
+      this.FirstName = user.UserProfile.first_name;
+      // console.log(user.UserProfile);
     },
   },
 };

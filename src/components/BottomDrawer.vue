@@ -8,7 +8,7 @@
 
       <div class="content">
         <div style="margin-left: 30px; text-align: left">
-          <h5><b>Hi</b> Cooray</h5>
+          <h5><b>Hi</b> {{FirstName}}</h5>
           <p>What do you want to deliver today?</p>
         </div>
 
@@ -70,27 +70,31 @@
           </ion-row>
 
           <ion-row class="ion-padding" @click="saved_places_screen">
-            <img  src="@/components/bottomDrawerSVG/saved_places.svg" alt="">
-            <p class="ion-padding"> <b>Saved Places </b></p>
-            <img src="@/components/bottomDrawerSVG/saved_places_right.svg" alt="">
+            <img src="@/components/bottomDrawerSVG/saved_places.svg" alt="" />
+            <p class="ion-padding"><b>Saved Places </b></p>
+            <img
+              src="@/components/bottomDrawerSVG/saved_places_right.svg"
+              alt=""
+            />
           </ion-row>
 
           <a href="/document_delivery"> Document Delivery (Temp)</a>
-          <br>
+          <br />
           <a href="/AddNewTask"> Add New Task (Temp)</a>
-          <br>
+          <br />
           <a href="/package_delivery"> Package Delivery (Temp)</a>
-          <br>
+          <br />
           <a href="/tasks"> Tasks (Temp)</a>
-          <br>
+          <br />
           <a href="/final_map"> Finding Rider (Temp)</a>
 
           <ion-row class="ion-padding">
-            <img  src="@/components/bottomDrawerSVG/saved_L.svg" alt="">
-            <p class="ion-padding ion-text-start"> <b>Bank </b> <br> <span>Nawala Road, Nugegoda</span> </p>
-            
+            <img src="@/components/bottomDrawerSVG/saved_L.svg" alt="" />
+            <p class="ion-padding ion-text-start">
+              <b>Bank </b> <br />
+              <span>Nawala Road, Nugegoda</span>
+            </p>
           </ion-row>
-
         </div>
       </div>
     </div>
@@ -99,12 +103,31 @@
 
 <script>
 import { createGesture } from "@ionic/vue";
-import { IonRow, IonCol, IonInput } from "@ionic/vue";
+import {
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonInput,
+  IonButton,
+  IonCheckbox,
+} from "@ionic/vue";
+import { Plugins } from "@capacitor/core";
+const { Storage } = Plugins;
 
 export default {
   components: {
     IonRow,
-    IonCol, IonInput,
+    IonCol,
+    IonInput,
+  },
+  date() {
+    return {
+      Firstname: "",
+    };
+  },
+  created() {
+    const user=this.$root.getObject()
+  console.log(user)
   },
   mounted() {
     let c = this.$refs.drawerRef;
@@ -163,13 +186,13 @@ export default {
     },
 
     show_more() {
-      this.$refs.drawerRef.style.transform = `translateY(${-300}px) `;
+      this.$refs.drawerRef.style.transform = `translateY(${-400}px) `;
     },
 
-    saved_places_screen(){
-      this.$router.push('/saved_places')
-    }
-
+    saved_places_screen() {
+      this.$router.push("/saved_places");
+    },
+ 
   },
 };
 </script>
@@ -185,7 +208,7 @@ export default {
   height: 800px;
   bottom: -370px;
   border-radius: 30px;
---placeholder-color: red;
+  --placeholder-color: red;
 }
 
 ion-input {
@@ -194,10 +217,7 @@ ion-input {
   height: 48px;
   left: 16px;
   /* top: 420px; */
-   background: #f7f7f7;
+  background: #f7f7f7;
   border-radius: 4px;
-  
 }
-
-
 </style>
