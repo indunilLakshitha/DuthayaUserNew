@@ -128,6 +128,12 @@ export default {
       this.mobileNo = user.mobile;
       this.otpCode = user.otp;
       this.user_type = user.type;
+      // console.log(this.otpCode)
+      var otp_ar= this.otpCode
+      this.otp_1= otp_ar.toString().substring(0,1);
+      this.otp_2= otp_ar.toString().substring(1,2);
+      this.otp_3= otp_ar.toString().substring(2,3);
+      this.otp_4= otp_ar.toString().substring(3,4);
     },
     login() {
       // this.otpCode = this.otp_1 + this.otp_2 + this.otp_3 + this.otp_4;

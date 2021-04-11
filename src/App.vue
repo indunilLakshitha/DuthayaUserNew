@@ -5,23 +5,31 @@
 </template>
 
 <script >
-import { IonApp, IonRouterOutlet } from '@ionic/vue';
-import { defineComponent } from 'vue';
+import { IonApp, IonRouterOutlet } from "@ionic/vue";
+import { defineComponent } from "vue";
 import { Plugins } from "@capacitor/core";
 const { Storage } = Plugins;
 export default defineComponent({
-  name: 'App',
+  name: "App",
   components: {
     IonApp,
-    IonRouterOutlet
+    IonRouterOutlet,
   },
-  methods:{
-     async getObject() {
+  data() {
+    return {
+      // UserProfile:'dsf'
+    };
+  },
+  methods: {
+    async getObject() {
       const ret = await Storage.get({ key: "PROFILE" });
       const user = JSON.parse(ret.value);
-      return user.UserProfile;
-      
+      this.UserProfile = user.UserProfile;
+      console.log(this.UserProfile);
     },
-  }
+  },
+  created() {
+    // this.getObject()
+  },
 });
 </script>

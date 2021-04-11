@@ -8,7 +8,7 @@
 
       <div class="content">
         <div style="margin-left: 30px; text-align: left">
-          <h5><b>Hi</b> {{FirstName}}</h5>
+          <h5><b>Hi</b> {{ Firstname }}</h5>
           <p>What do you want to deliver today?</p>
         </div>
 
@@ -120,14 +120,14 @@ export default {
     IonCol,
     IonInput,
   },
-  date() {
+  data() {
     return {
       Firstname: "",
     };
   },
   created() {
-    const user=this.$root.getObject()
-  console.log(user)
+    this.getObject();
+    // console.log(user.Promise)
   },
   mounted() {
     let c = this.$refs.drawerRef;
@@ -192,7 +192,12 @@ export default {
     saved_places_screen() {
       this.$router.push("/saved_places");
     },
- 
+    async getObject() {
+      const ret = await Storage.get({ key: "PROFILE" });
+      const user = JSON.parse(ret.value);
+      this.Firstname=user.UserProfile.first_name
+      // console.log(user.UserProfile);
+    },
   },
 };
 </script>
