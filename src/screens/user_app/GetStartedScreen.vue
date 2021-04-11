@@ -99,7 +99,8 @@ export default {
         }),
       });
         //  console.log(data)
-         this.$router.push("main-1");
+         this.$router.push("delivery");
+        //  this.$router.push("main-1");
      
     },
   },
