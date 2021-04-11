@@ -130,7 +130,7 @@ const routes = [
       },
 ]
 
-const URL='http://duthaya.xcelenit.store/api/'
+const URL='https://duthaya.xcelenit.store/api/'
 
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
