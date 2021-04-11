@@ -11,7 +11,7 @@
             v-model="mobileNo"
           ></ion-input>
         </form>
-        <ion-button expand="full" v-on:click="getOtp">Next</ion-button>
+        <ion-button expand="full" :disabled="mobileNo.length !== 10" v-on:click="getOtp">Next</ion-button>
         <!-- <ion-button expand="full" v-on:click="setObject">Next</ion-button> -->
       </div>
     </ion-content>
@@ -105,13 +105,13 @@ export default {
           type: type,
         }),
       });
-      console.log("success");
+      // console.log("success");
       this.getObject();
     },
     async getObject() {
       const ret = await Storage.get({ key: "OTP" });
       const user = JSON.parse(ret.value);
-      console.log(user);
+      // console.log(user);
       if(user.type=="new"){
       this.$router.push("otp");
 

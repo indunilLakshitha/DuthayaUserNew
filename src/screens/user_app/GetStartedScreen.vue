@@ -25,7 +25,7 @@
          
         </p>
       </form>
-      <ion-button expand="full" id="btn" @click="register()">Next</ion-button>
+      <ion-button expand="full" :disabled="!checkbox_value || FirstName.length =='' ||FirstName.length ==''" id="btn" @click="register()">Next</ion-button>
     </div>
   </BaseLayout>
 </template>
@@ -55,9 +55,9 @@ export default {
   },
   methods: {
     register() {
-      console.log(this.FirstName);
-      console.log(this.LastName);
-      console.log(this.Token);
+      // console.log(this.FirstName);
+      // console.log(this.LastName);
+      // console.log(this.Token);
       axios.defaults.headers = {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -78,7 +78,7 @@ export default {
       const ret = await Storage.get({ key: "TOKEN" });
       const user = JSON.parse(ret.value);
       this.Token = user.token;
-      console.log(this.Token)
+      // console.log(this.Token)
     },
     async setObject(f_name,l_name) {
       await Storage.set({
@@ -98,7 +98,7 @@ export default {
          UserProfile:data
         }),
       });
-         console.log(data)
+        //  console.log(data)
          this.$router.push("main-1");
      
     },
